@@ -4,7 +4,9 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "prisma generate && prisma migrate deploy && next build",
+    "build": "cross-env DATABASE_URL=postgresql://dummy:dummy@localhost:5432/dummy prisma generate && next build",
+    "postinstall": "cross-env DATABASE_URL=postgresql://dummy:dummy@localhost:5432/dummy prisma generate",
+    "db:migrate": "prisma migrate deploy",
     "start": "next start",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix"
@@ -18,6 +20,7 @@
     "three": "^0.182.0"
   },
   "devDependencies": {
+    "cross-env": "^7.0.3",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",
