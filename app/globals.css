@@ -8,8 +8,7 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-poppins);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -22,23 +21,34 @@
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-poppins), system-ui, sans-serif;
 }
 
-/* Landing page refinements */
+/* Landing page: navbar — spaced, larger font, clear header */
+.landing-header {
+  transition: box-shadow 0.25s ease;
+}
+.landing-header .landing-nav-link,
+.landing-header nav {
+  font-family: var(--font-poppins), system-ui, sans-serif;
+  font-weight: 600;
+  -webkit-font-smoothing: antialiased;
+  letter-spacing: 0.025em;
+}
 .landing-nav-link {
   color: rgba(255, 255, 255, 0.92);
   text-decoration: none;
   font-size: 17px;
-  font-weight: 500;
-  letter-spacing: 0.02em;
-  padding: 6px 12px;
-  border-radius: 6px;
-  transition: color 0.2s ease, background 0.2s ease;
+  font-weight: 600;
+  letter-spacing: 0.025em;
+  padding: 8px 14px;
+  border-radius: 8px;
+  transition: color 0.2s ease, background 0.2s ease, transform 0.2s ease;
 }
 .landing-nav-link:hover {
   color: #fff;
   background: rgba(255, 255, 255, 0.1);
+  transform: translateY(-1px);
 }
 /* Transparent navbar: dark text on light background */
 .landing-nav-link-transparent {
@@ -46,21 +56,23 @@ body {
 }
 .landing-nav-link-transparent:hover {
   color: #1f2e8d !important;
-  background: rgba(31, 46, 141, 0.08) !important;
-}
-.landing-logo-link:hover {
-  opacity: 0.9;
+  background: rgba(31, 46, 141, 0.1) !important;
+  transform: translateY(-1px);
 }
 .landing-logo-link {
-  padding: 2px 6px;
-  border-radius: 6px;
-  transition: opacity 0.2s ease;
+  padding: 4px 8px;
+  border-radius: 8px;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+.landing-logo-link:hover {
+  opacity: 0.88;
+  transform: scale(1.02);
 }
 .landing-outline-btn {
   transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
 }
 .landing-outline-btn:hover {
-  background: rgba(31, 46, 141, 0.06) !important;
+  background: #f0f4fc !important;
   transform: translateY(-1px);
 }
 .landing-next-btn {
@@ -77,4 +89,25 @@ body {
 .landing-play-btn:hover {
   transform: scale(1.08);
   background: #fff !important;
+}
+
+/* Question container: textarea focus & placeholder */
+.landing-survey-textarea:focus {
+  border-color: rgba(31, 46, 141, 0.4) !important;
+  box-shadow: 0 0 0 3px rgba(31, 46, 141, 0.12), 0 2px 8px rgba(31, 46, 141, 0.06) !important;
+}
+.landing-survey-textarea::placeholder {
+  color: rgba(31, 46, 141, 0.4);
+}
+.landing-survey-label {
+  display: block;
+}
+
+/* Submitted state: down arrow bounce */
+.landing-arrow-down {
+  animation: landingArrowBounce 1.2s ease-in-out infinite;
+}
+@keyframes landingArrowBounce {
+  0%, 100% { transform: translateY(0); opacity: 1; }
+  50% { transform: translateY(6px); opacity: 0.8; }
 }

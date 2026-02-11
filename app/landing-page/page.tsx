@@ -5,6 +5,28 @@ import LandingSurveyBlock from "@/app/component/LandingSurveyBlock";
 const LIGHT_BLUE = "#C8ECFF";
 const DARK_BLUE = "#1F2E8D";
 
+// Decorative white circles in background — random-looking positions/sizes
+const BG_CIRCLES = [
+  { size: 32, left: 8, top: 12 },
+  { size: 48, left: 88, top: 18 },
+  { size: 24, left: 72, top: 28 },
+  { size: 40, left: 15, top: 45 },
+  { size: 56, left: 82, top: 38 },
+  { size: 28, left: 45, top: 22 },
+  { size: 36, left: 28, top: 65 },
+  { size: 44, left: 65, top: 55 },
+  { size: 20, left: 92, top: 72 },
+  { size: 52, left: 5, top: 78 },
+  { size: 30, left: 55, top: 82 },
+  { size: 38, left: 38, top: 42 },
+  { size: 26, left: 78, top: 8 },
+  { size: 42, left: 12, top: 32 },
+  { size: 34, left: 70, top: 68 },
+  { size: 46, left: 50, top: 58 },
+  { size: 22, left: 25, top: 85 },
+  { size: 50, left: 85, top: 48 },
+];
+
 export default function LandingPage() {
   return (
     <div
@@ -15,11 +37,13 @@ export default function LandingPage() {
         flexDirection: "column",
       }}
     >
-      {/* Nav bar — transparent, compact */}
+      {/* Nav bar — shadow + minimal hover animations */}
       <header
+        className="landing-header"
         style={{
           background: "transparent",
-          borderBottom: "1px solid rgba(31, 46, 141, 0.12)",
+          borderBottom: "1px solid rgba(31, 46, 141, 0.1)",
+          boxShadow: "0 2px 16px rgba(31, 46, 141, 0.06)",
         }}
       >
         <div
@@ -27,30 +51,31 @@ export default function LandingPage() {
             width: "100%",
             maxWidth: 1200,
             margin: "0 auto",
-            padding: "8px 16px",
+            padding: "14px 24px",
             display: "flex",
             alignItems: "center",
             justifyContent: "space-between",
+            gap: 24,
           }}
         >
-          <Link href="/" className="landing-logo-link" style={{ display: "flex", alignItems: "center" }}>
+          <Link href="/" className="landing-logo-link" style={{ display: "flex", alignItems: "center", lineHeight: 0 }}>
             <Image
               src="/images/icx-logo.png"
               alt="iCX - Internal Customer Experience"
-              width={140}
-              height={46}
+              width={120}
+              height={40}
               style={{ objectFit: "contain" }}
               priority
             />
           </Link>
-          <nav style={{ display: "flex", gap: 4, alignItems: "center" }}>
-            <Link href="/" className="landing-nav-link landing-nav-link-transparent">
+          <nav style={{ display: "flex", gap: 20, alignItems: "center" }}>
+            <Link href="/landing-page" className="landing-nav-link landing-nav-link-transparent">
               iCX
             </Link>
             <Link href="#" className="landing-nav-link landing-nav-link-transparent">
               Groups
             </Link>
-            <Link href="#" className="landing-nav-link landing-nav-link-transparent">
+            <Link href="/faqs" className="landing-nav-link landing-nav-link-transparent">
               FAQs
             </Link>
           </nav>
@@ -91,34 +116,64 @@ export default function LandingPage() {
           />
         </div>
 
-        {/* Content (above background) */}
+        {/* Decorative white circles — background style */}
+        <div
+          aria-hidden
+          style={{
+            position: "absolute",
+            inset: 0,
+            zIndex: 0,
+            pointerEvents: "none",
+            overflow: "hidden",
+          }}
+        >
+          {BG_CIRCLES.map((c, i) => (
+            <div
+              key={i}
+              style={{
+                position: "absolute",
+                left: `${c.left}%`,
+                top: `${c.top}%`,
+                width: c.size,
+                height: c.size,
+                borderRadius: "50%",
+                background: "rgba(255, 255, 255, 0.25)",
+                transform: "translate(-50%, -50%)",
+              }}
+            />
+          ))}
+        </div>
+
+        {/* Content (above background) — wider so less side margin */}
         <main
           style={{
             position: "relative",
             zIndex: 1,
-            padding: "32px 48px 48px",
-            maxWidth: 900,
+            padding: "32px 32px 48px",
+            maxWidth: 1200,
             margin: "0 auto",
             width: "100%",
+            boxSizing: "border-box",
           }}
         >
-        {/* Question container — 10 questions, user submits answer here */}
+        {/* Question container — card bg distinct from text box */}
         <div
           style={{
-            background: "white",
+            background: "linear-gradient(165deg, rgba(232, 246, 252, 0.97) 0%, rgba(220, 240, 250, 0.95) 100%)",
             borderRadius: 24,
-            padding: "28px 32px",
-            marginBottom: 80,
+            padding: "36px 40px",
+            marginBottom: 200,
             boxShadow:
-              "0 4px 24px rgba(31, 46, 141, 0.08), 0 1px 3px rgba(0, 0, 0, 0.04)",
-            border: "1px solid rgba(31, 46, 141, 0.06)",
+              "0 8px 32px rgba(31, 46, 141, 0.08), 0 1px 0 rgba(255, 255, 255, 0.9) inset",
+            border: "1px solid rgba(31, 46, 141, 0.1)",
           }}
         >
           <LandingSurveyBlock />
         </div>
 
-        {/* Video placeholder */}
+        {/* Video placeholder — scroll target after submit */}
         <div
+          id="landing-below-question"
           style={{
             background: "linear-gradient(145deg, #1f1f1f 0%, #151515 100%)",
             borderRadius: 20,
@@ -158,24 +213,23 @@ export default function LandingPage() {
           </div>
         </div>
 
-        {/* Bottom section: two buttons */}
+        {/* Bottom section: two buttons — left and right */}
         <div
           style={{
             display: "flex",
             alignItems: "center",
-            justifyContent: "flex-end",
-            gap: 16,
+            justifyContent: "space-between",
             flexWrap: "wrap",
           }}
         >
           <Link
-            href="#"
+            href="/faqs"
             className="landing-outline-btn"
             style={{
               display: "inline-flex",
               alignItems: "center",
               justifyContent: "center",
-              padding: "14px 28px",
+              padding: "10px 25px",
               background: "white",
               color: DARK_BLUE,
               border: `2px solid ${DARK_BLUE}`,
