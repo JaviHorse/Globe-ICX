@@ -6,11 +6,11 @@ const DARK_BLUE = "#1F2E8D";
 
 export default function FAQsPage() {
   return (
-    <ResponsiveStage designWidth={1512} designHeight={2000}>
+    <ResponsiveStage designWidth={1512} designHeight={1200}>
       <div
         style={{
           width: "1512px",
-          height: "2000px",
+          height: "1200px",
           background: "#ffffff",
           display: "flex",
           flexDirection: "column",

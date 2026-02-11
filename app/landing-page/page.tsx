@@ -11,11 +11,93 @@ export default function LandingPage() {
   const videoSectionRef = useRef<HTMLDivElement>(null);
 
   const scrollToVideo = () => {
-    videoSectionRef.current?.scrollIntoView({ behavior: "smooth" });
+    videoSectionRef.current?.scrollIntoView({ behavior: "smooth", block: "end" });
   };
 
   return (
     <ResponsiveStage designWidth={1512} designHeight={1948}>
+      <style jsx global>{`
+        .icxNextButton {
+          transition: transform 180ms ease, box-shadow 180ms ease, filter 180ms ease, outline 120ms ease !important;
+          will-change: transform;
+          transform: translateZ(0);
+          position: relative;
+          overflow: hidden;
+        }
+        .icxNextButton::before {
+          content: "";
+          position: absolute;
+          inset: -10px;
+          background: radial-gradient(circle at center, #00A0EA, #29348F);
+          filter: blur(20px);
+          opacity: 0;
+          transition: opacity 180ms ease;
+          pointer-events: none;
+          z-index: 0;
+        }
+        .icxNextButton:hover {
+          transform: translateY(-2px) !important;
+          box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.3) !important;
+        }
+        .icxNextButton:hover::before {
+          opacity: 0.18;
+        }
+        .icxNextButton:active {
+          transform: translateY(0px) !important;
+          box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2) !important;
+        }
+        .icxNextButton:active::before {
+          opacity: 0.12;
+        }
+        .icxNextButton:focus-visible {
+          outline: 3px solid rgba(0, 160, 234, 0.55) !important;
+          outline-offset: 3px !important;
+        }
+        .icxNextButton > span {
+          position: relative;
+          z-index: 1;
+        }
+
+        .icxSecondaryButton {
+          transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease !important;
+          will-change: transform;
+          transform: translateZ(0);
+          position: relative;
+          overflow: hidden;
+        }
+        .icxSecondaryButton:hover {
+          transform: translateY(-2px) !important;
+          box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1) !important;
+          border-color: #00A0EA !important;
+        }
+        .icxSecondaryButton:active {
+          transform: translateY(0px) !important;
+          box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1) !important;
+        }
+        .icxSecondaryButton:focus-visible {
+          outline: 3px solid rgba(0, 160, 234, 0.55) !important;
+          outline-offset: 3px !important;
+        }
+
+        .icxCardShell {
+          background: rgba(255, 255, 255, 0.9);
+          border: 1px solid rgba(41, 52, 143, 0.10);
+          border-radius: 24px;
+          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+          transition: box-shadow 180ms ease, transform 180ms ease;
+        }
+        .icxCardShell:hover {
+          box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+        }
+        .icxCardShell:focus-within {
+          box-shadow: 0 0 0 4px rgba(0, 160, 234, 0.2), 0 12px 40px rgba(0, 160, 234, 0.15);
+          border-color: rgba(0, 160, 234, 0.3);
+        }
+        .icxCardShell:active {
+          transform: scale(0.998);
+          box-shadow: 0 0 0 2px rgba(0, 160, 234, 0.25), 0 8px 25px rgba(0, 160, 234, 0.2);
+        }
+      `}</style>
       <div
         style={{
           position: "relative",
@@ -181,6 +263,7 @@ export default function LandingPage() {
 
           {/* Chatbox / Survey Container */}
           <div
+            className="icxCardShell"
             style={{
               position: "absolute",
               width: "920px",
@@ -195,6 +278,7 @@ export default function LandingPage() {
           {/* Next Button (Now Scrolls) */}
           <button
             onClick={scrollToVideo}
+            className="icxNextButton"
             style={{
               position: "absolute",
               width: "196px",
@@ -241,7 +325,7 @@ export default function LandingPage() {
             iCX makes sharing feedback easy and meaningful!
           </div>
 
-          {/* Video Section (Ref added here) */}
+          {/* Video Section */}
           <div
             ref={videoSectionRef}
             style={{
@@ -283,6 +367,7 @@ export default function LandingPage() {
           {/* Bottom Buttons */}
           <Link
             href="/faqs"
+            className="icxSecondaryButton"
             style={{
               position: "absolute",
               width: "375px",
@@ -312,6 +397,7 @@ export default function LandingPage() {
 
           <Link
             href="/groups"
+            className="icxNextButton"
             style={{
               position: "absolute",
               width: "375px",
