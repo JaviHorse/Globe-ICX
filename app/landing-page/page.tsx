@@ -1,269 +1,340 @@
+"use client";
+
+import React, { useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import LandingSurveyBlock from "@/app/component/LandingSurveyBlock";
 
-const LIGHT_BLUE = "#C8ECFF";
-const DARK_BLUE = "#1F2E8D";
-
-// Decorative white circles in background — random-looking positions/sizes
-const BG_CIRCLES = [
-  { size: 32, left: 8, top: 12 },
-  { size: 48, left: 88, top: 18 },
-  { size: 24, left: 72, top: 28 },
-  { size: 40, left: 15, top: 45 },
-  { size: 56, left: 82, top: 38 },
-  { size: 28, left: 45, top: 22 },
-  { size: 36, left: 28, top: 65 },
-  { size: 44, left: 65, top: 55 },
-  { size: 20, left: 92, top: 72 },
-  { size: 52, left: 5, top: 78 },
-  { size: 30, left: 55, top: 82 },
-  { size: 38, left: 38, top: 42 },
-  { size: 26, left: 78, top: 8 },
-  { size: 42, left: 12, top: 32 },
-  { size: 34, left: 70, top: 68 },
-  { size: 46, left: 50, top: 58 },
-  { size: 22, left: 25, top: 85 },
-  { size: 50, left: 85, top: 48 },
-];
-
 export default function LandingPage() {
+  const videoSectionRef = useRef<HTMLDivElement>(null);
+
+  const scrollToVideo = () => {
+    videoSectionRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
   return (
     <div
       style={{
-        minHeight: "100vh",
-        background: `linear-gradient(180deg, ${LIGHT_BLUE} 0%, #b8e2f5 100%)`,
-        display: "flex",
-        flexDirection: "column",
+        position: "relative",
+        width: "1512px", // Fixed width
+        height: "1948px", // Fixed height
+        background: "#FFFFFF",
+        margin: "0 auto",
+        overflow: "hidden",
       }}
     >
-      {/* Nav bar — shadow + minimal hover animations */}
-      <header
-        className="landing-header"
-        style={{
-          background: "transparent",
-          borderBottom: "1px solid rgba(31, 46, 141, 0.1)",
-          boxShadow: "0 2px 16px rgba(31, 46, 141, 0.06)",
-        }}
-      >
-        <div
-          style={{
-            width: "100%",
-            maxWidth: 1200,
-            margin: "0 auto",
-            padding: "8px 24px",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-            gap: 24,
-          }}
-        >
-          <Link href="/" className="landing-logo-link" style={{ display: "flex", alignItems: "center", lineHeight: 0 }}>
-            <Image
-              src="/images/icx-logo.png"
-              alt="iCX - Internal Customer Experience"
-              width={100}
-              height={32}
-              style={{ objectFit: "contain" }}
-              priority
-            />
-          </Link>
-          <nav style={{ display: "flex", gap: 20, alignItems: "center" }}>
-            <Link href="/landing-page" className="landing-nav-link landing-nav-link-transparent">
-              iCX
-            </Link>
-            <Link href="#" className="landing-nav-link landing-nav-link-transparent">
-              Groups
-            </Link>
-            <Link href="/faqs" className="landing-nav-link landing-nav-link-transparent">
-              FAQs
-            </Link>
-          </nav>
-        </div>
-      </header>
-
-      {/* Main content area — full width wrapper for lighthouse */}
+      {/* Layer 1: Blue Background */}
       <div
         style={{
-          flex: 1,
-          position: "relative",
-          width: "100%",
-          minHeight: 0,
+          position: "absolute",
+          width: "1516px",
+          height: "962px",
+          left: "0px",
+          top: "0px",
+          background: "#C8ECFF",
+          zIndex: 0,
         }}
-      >
-        {/* Lighthouse background — full width, no margin, bigger */}
+      />
+
+      {/* Layer 2: Hero Elements (Lighthouse & Beam) */}
+      <div style={{ position: "absolute", left: 0, top: 0, width: "100%", height: "100%", zIndex: 1, pointerEvents: "none" }}>
+
+        {/* Vector 1 (Beam) */}
         <div
           style={{
             position: "absolute",
-            left: 0,
-            right: 0,
-            bottom: 0,
-            width: "100%",
-            height: "55vh",
-            minHeight: 320,
-            zIndex: 0,
-            pointerEvents: "none",
+            width: "1595px",
+            height: "1074px",
+            left: "152px",
+            top: "-103px",
+            zIndex: 1,
+          }}
+        >
+          <Image
+            src="/images/Vector 1.png"
+            alt="Lighthouse Beam"
+            fill
+            style={{ objectFit: "contain" }}
+          />
+        </div>
+
+        {/* Lighthouse */}
+        <div
+          style={{
+            position: "absolute",
+            width: "887px",
+            height: "624px",
+            left: "-101px",
+            top: "338px",
+            zIndex: 2,
           }}
         >
           <Image
             src="/images/lighthouse.png"
-            alt=""
+            alt="Lighthouse"
             fill
-            style={{
-              objectFit: "contain",
-              objectPosition: "bottom left",
-            }}
+            style={{ objectFit: "contain" }}
+          />
+        </div>
+      </div>
+
+      {/* Layer 3: Main Content (Text, Nav, Chatbox) */}
+      <div style={{ position: "absolute", left: 0, top: 0, width: "100%", height: "100%", zIndex: 10 }}>
+
+        {/* Hi, Ka-Globe! */}
+        <div
+          style={{
+            position: "absolute",
+            width: "563px",
+            height: "60px",
+            left: "618px",
+            top: "162px",
+            fontFamily: "'Poppins', sans-serif",
+            fontWeight: 700,
+            fontSize: "64px",
+            lineHeight: "96px",
+            textAlign: "center",
+            color: "#1F2E8D",
+          }}
+        >
+          Hi, Ka-Globe!
+        </div>
+
+        {/* Nav / Logo */}
+        <div
+          style={{
+            position: "absolute",
+            width: "174px",
+            height: "174px",
+            left: "12px",
+            top: "-12px",
+          }}
+        >
+          <Image
+            src="/images/icx-logo.png"
+            alt="iCX Logo"
+            fill
+            style={{ objectFit: "contain" }}
           />
         </div>
 
-        {/* Decorative white circles — background style */}
-        <div
-          aria-hidden
+        <Link
+          href="/landing-page"
           style={{
             position: "absolute",
-            inset: 0,
-            zIndex: 0,
-            pointerEvents: "none",
-            overflow: "hidden",
+            width: "98px",
+            height: "52px",
+            left: "1041px",
+            top: "49px",
+            fontFamily: "'Poppins', sans-serif",
+            fontWeight: 400,
+            fontSize: "33px",
+            lineHeight: "50px",
+            textAlign: "center",
+            color: "#29348F",
+            textDecoration: "none",
           }}
         >
-          {BG_CIRCLES.map((c, i) => (
-            <div
-              key={i}
-              style={{
-                position: "absolute",
-                left: `${c.left}%`,
-                top: `${c.top}%`,
-                width: c.size,
-                height: c.size,
-                borderRadius: "50%",
-                background: "rgba(255, 255, 255, 0.25)",
-                transform: "translate(-50%, -50%)",
-              }}
-            />
-          ))}
-        </div>
-
-        {/* Content (above background) — wider so less side margin */}
-        <main
+          iCX
+        </Link>
+        <Link
+          href="/groups"
           style={{
-            position: "relative",
-            zIndex: 1,
-            padding: "32px 32px 48px",
-            maxWidth: 1200,
-            margin: "0 auto",
-            width: "100%",
-            boxSizing: "border-box",
+            position: "absolute",
+            width: "158px",
+            height: "52px",
+            left: "1159px",
+            top: "49px",
+            fontFamily: "'Poppins', sans-serif",
+            fontWeight: 400,
+            fontSize: "33px",
+            lineHeight: "50px",
+            textAlign: "center",
+            color: "#29348F",
+            textDecoration: "none",
           }}
         >
-        {/* Question container — card bg distinct from text box */}
+          Groups
+        </Link>
+        <Link
+          href="/faqs"
+          style={{
+            position: "absolute",
+            width: "158px",
+            height: "52px",
+            left: "1327px",
+            top: "49px",
+            fontFamily: "'Poppins', sans-serif",
+            fontWeight: 400,
+            fontSize: "33px",
+            lineHeight: "50px",
+            textAlign: "center",
+            color: "#29348F",
+            textDecoration: "none",
+          }}
+        >
+          FAQs
+        </Link>
+
+        {/* Chatbox / Survey Container */}
         <div
           style={{
-            background: "linear-gradient(165deg, rgba(232, 246, 252, 0.97) 0%, rgba(220, 240, 250, 0.95) 100%)",
-            borderRadius: 24,
-            padding: "36px 40px",
-            marginBottom: 200,
-            boxShadow:
-              "0 8px 32px rgba(31, 46, 141, 0.08), 0 1px 0 rgba(255, 255, 255, 0.9) inset",
-            border: "1px solid rgba(31, 46, 141, 0.1)",
+            position: "absolute",
+            width: "920px",
+            height: "380px",
+            left: "440px",
+            top: "310px",
           }}
         >
           <LandingSurveyBlock />
         </div>
 
-        {/* Video placeholder — scroll target after submit */}
-        <div
-          id="landing-below-question"
+        {/* Next Button (Now Scrolls) */}
+        <button
+          onClick={scrollToVideo}
           style={{
-            background: "linear-gradient(145deg, #1f1f1f 0%, #151515 100%)",
-            borderRadius: 20,
-            aspectRatio: "16/9",
+            position: "absolute",
+            width: "196px",
+            height: "52px",
+            left: "802px",
+            top: "730px",
+            background: "#3D59B7",
+            borderRadius: "30px",
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-            marginBottom: 36,
-            boxShadow:
-              "0 12px 40px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.04)",
-            border: "1px solid rgba(0, 0, 0, 0.2)",
+            border: "none",
+            cursor: "pointer",
+            boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
+            zIndex: 20
           }}
         >
-          <div
-            className="landing-play-btn"
-            style={{
-              width: 76,
-              height: 76,
-              borderRadius: "50%",
-              background: "rgba(255, 255, 255, 0.95)",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              cursor: "pointer",
-              boxShadow: "0 4px 20px rgba(0, 0, 0, 0.3)",
-            }}
-          >
-            <svg
-              width="30"
-              height="34"
-              viewBox="0 0 24 28"
-              fill="none"
-              style={{ marginLeft: 4 }}
-            >
-              <path d="M2 2L22 14L2 26V2Z" fill={DARK_BLUE} />
-            </svg>
-          </div>
-        </div>
+          <span style={{
+            fontFamily: "'Poppins', sans-serif",
+            fontWeight: 600,
+            fontSize: "24px",
+            color: "#FFFFFF",
+          }}>
+            Next
+          </span>
+        </button>
 
-        {/* Bottom section: two buttons — left and right */}
+        {/* iCX makes sharing feedback easy and meaningful! */}
         <div
           style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-            flexWrap: "wrap",
+            position: "absolute",
+            width: "1512px",
+            height: "60px",
+            left: "0px",
+            top: "1065px",
+            fontFamily: "'Poppins', sans-serif",
+            fontWeight: 700,
+            fontSize: "40px",
+            lineHeight: "60px",
+            textAlign: "center",
+            color: "#1F2E8D",
           }}
         >
-          <Link
-            href="/faqs"
-            className="landing-outline-btn"
-            style={{
-              display: "inline-flex",
-              alignItems: "center",
-              justifyContent: "center",
-              padding: "10px 25px",
-              background: "white",
-              color: DARK_BLUE,
-              border: `2px solid ${DARK_BLUE}`,
-              borderRadius: 999,
-              fontSize: 15,
-              fontWeight: 600,
-              textDecoration: "none",
-              letterSpacing: "0.02em",
-            }}
-          >
-            Know more about iCX
-          </Link>
-          <Link
-            href="/"
-            className="landing-next-btn"
-            style={{
-              display: "inline-flex",
-              alignItems: "center",
-              justifyContent: "center",
-              padding: "14px 28px",
-              background: DARK_BLUE,
-              color: "white",
-              borderRadius: 999,
-              fontSize: 15,
-              fontWeight: 600,
-              textDecoration: "none",
-              boxShadow: "0 4px 20px rgba(31, 46, 141, 0.35)",
-              letterSpacing: "0.02em",
-            }}
-          >
-            Start my iCX journey
-          </Link>
+          iCX makes sharing feedback easy and meaningful!
         </div>
-        </main>
+
+        {/* Video Section (Ref added here) */}
+        <div
+          ref={videoSectionRef}
+          style={{
+            position: "absolute",
+            width: "1031px",
+            height: "544px",
+            left: "240px",
+            top: "1162px",
+          }}
+        >
+          {/* Rectangle 1 (Black bg) */}
+          <div
+            style={{
+              position: "absolute",
+              width: "1031px",
+              height: "544px",
+              left: "0px",
+              top: "0px",
+              background: "#030303",
+              boxShadow: "0px 0px 5px 2px rgba(0, 0, 0, 0.3)",
+              borderRadius: "30px",
+            }}
+          />
+          {/* Play Button Triangle */}
+          <div
+            style={{
+              position: "absolute",
+              left: "465px",
+              top: "218px",
+              width: 0,
+              height: 0,
+              borderTop: "54px solid transparent",
+              borderBottom: "54px solid transparent",
+              borderLeft: "100px solid #FFFFFF",
+            }}
+          />
+        </div>
+
+        {/* Bottom Buttons */}
+        <Link
+          href="/faqs"
+          style={{
+            position: "absolute",
+            width: "375px",
+            height: "52px",
+            left: "240px",
+            top: "1767px",
+            background: "#FFFFFF",
+            border: "2px solid #1F2E8D",
+            borderRadius: "30px",
+            cursor: "pointer",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            textDecoration: "none"
+          }}
+        >
+          <span style={{
+            fontFamily: "'Poppins', sans-serif",
+            fontWeight: 400,
+            fontSize: "30px",
+            lineHeight: "45px",
+            color: "#1F2E8D",
+          }}>
+            Know more about iCX
+          </span>
+        </Link>
+
+        <Link
+          href="/groups"
+          style={{
+            position: "absolute",
+            width: "375px",
+            height: "52px",
+            left: "896px",
+            top: "1767px",
+            background: "#3D59B7",
+            borderRadius: "30px",
+            cursor: "pointer",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            textDecoration: "none"
+          }}
+        >
+          <span style={{
+            fontFamily: "'Poppins', sans-serif",
+            fontWeight: 400,
+            fontSize: "30px",
+            lineHeight: "45px",
+            color: "#FFFFFF",
+          }}>
+            Start my iCX journey
+          </span>
+        </Link>
+
       </div>
     </div>
   );

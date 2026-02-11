@@ -14,6 +14,15 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model UserVisit {
+  id        String   @id @default(cuid())
+  userEmail String
+  createdAt DateTime @default(now())
+
+  @@index([userEmail])
+  @@index([createdAt])
+}
+
 model Answer {
   id            String   @id @default(cuid())
   seed          String
@@ -27,4 +36,3 @@ model Answer {
   @@index([questionIndex])
   @@index([userEmail])
 }
-
